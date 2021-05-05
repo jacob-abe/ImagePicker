@@ -10,7 +10,6 @@ import com.github.dhaval2404.imagepicker.constant.ImageProvider
 import com.github.dhaval2404.imagepicker.listener.DismissListener
 import com.github.dhaval2404.imagepicker.listener.ResultListener
 import com.github.dhaval2404.imagepicker.util.DialogHelper
-import com.github.florent37.inlineactivityresult.kotlin.startForResult
 import java.io.File
 
 /**
@@ -377,20 +376,7 @@ open class ImagePicker {
             try {
                 val intent = Intent(activity, ImagePickerActivity::class.java)
                 intent.putExtras(getBundle())
-                if (fragment != null) {
 
-                    fragment?.startForResult(intent) { result ->
-                        completionHandler?.invoke(result.resultCode, result.data)
-                    }?.onFailed { result ->
-                        completionHandler?.invoke(result.resultCode, result.data)
-                    }
-                } else {
-                    (activity as AppCompatActivity).startForResult(intent) { result ->
-                        completionHandler?.invoke(result.resultCode, result.data)
-                    }.onFailed { result ->
-                        completionHandler?.invoke(result.resultCode, result.data)
-                    }
-                }
             } catch (e: Exception) {
                 if (e is ClassNotFoundException) {
                     val message = "InlineActivityResult library not installed falling back to" +
